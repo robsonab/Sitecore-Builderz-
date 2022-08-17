@@ -1,0 +1,65 @@
+﻿
+@using Sitecore.Mvc
+@using Sitecore.Mvc.Presentation
+@using Sitecore.DemoProject.MVC.Models
+
+@model CarouselModel
+
+@if (Model != null && Model.Slides != null && Model.Slides.Count > 0)
+{
+
+    bool isExperienceEditor = Sitecore.Context.PageMode.IsExperienceEditor;
+    string data_ride = isExperienceEditor ? "false" : "true";
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="@data_ride">
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.Slides.Count; i++)
+            {
+                if (i == 0)
+                {
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide 1">
+                    </button>
+                }
+                else
+                {
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" aria-label="Slide 2">
+                    </button>
+                }
+            }
+        </div>
+        <div class="carousel-inner">
+            @{
+                int count = 0;
+            }
+
+            @foreach (var slide in Model.Slides)
+            {
+                var activeClass = count == 0 ? "active" : string.Empty;
+
+                <div class="carousel-item @activeClass">
+                    @slide.Image
+                    <div class="carousel-caption d-none d-md-block">
+                        @if (string.IsNullOrEmpty(slide.Title.ToString()) == false || isExperienceEditor)
+                        {
+                            <h1>@slide.Title</h1>
+                        }
+                        @if (string.IsNullOrEmpty(slide.SubTitle.ToString()) == false || isExperienceEditor)
+                        {
+                            <p>@slide.SubTitle</p>
+                        }
+                    </div>
+                </div>
+                count++;
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">@Model.Previous</span>@Model.Previous
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            @Model.Next
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">@Model.Next</span>
+        </button>
+    </div>
+}

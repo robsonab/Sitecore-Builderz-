@@ -1,0 +1,104 @@
+﻿
+@using Sitecore.Mvc
+@using Sitecore.Mvc.Presentation
+@using Sitecore.DemoProject.MVC.Models
+
+@model CarouselModel
+
+
+@if (Model != null && Model.Slides != null && Model.Slides.Count > 0)
+{
+    @*if (Sitecore.Context.PageMode.IsExperienceEditorEditing)
+    {
+        var countCarrousel = 0;
+        foreach (var slide in Model.Slides)
+        {
+            countCarrousel++;
+            var carouselId = "carousel" + countCarrousel.ToString();
+
+            <div id="@carouselId" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#@carouselId" data-slide-to="0" class="active"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        @slide.Image
+                        <div class="carousel-caption">
+                            <p class="">@slide.Title</p>
+                            <h1 class="">@slide.SubTitle</h1>
+                            @slide.CallToAction
+                        </div>
+                    </div>
+                </div>
+
+                <a class="carousel-control-prev" href="#@carouselId" role="button" data - slide="pre">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only"> Previous </span> @Model.Previous
+                </a>
+                <a class="carousel-control-next" href="#@carouselId" role="button" data-slide="next">
+                    @Model.Next
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only"> Next </span>
+                </a>
+            </div>
+        }
+    }
+    else
+    {*@
+        <div id="carousel" class="carousel slide" data-interval="false">
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < Model.Slides.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        <li data-target="#carousel" data-slide-to="@i" class="active"></li>
+                    }
+                    else
+                    {
+                        <li data-target="#carousel" data-slide-to="@i"></li>
+                    }
+                }
+            </ol>
+
+            <div class="carousel-inner">
+                @{
+                    int count = 0;
+                }
+                @foreach (var slide in Model.Slides)
+                {
+                    var activeClass = count == 0 ? "active" : string.Empty;
+
+                    <div class="carousel-item @activeClass">
+                        @slide.Image
+
+                        <div class="carousel-caption">
+                            @if (slide.Title != null)
+                            {
+                                <p class="animated fadeInRight"> @slide.Title </p>
+                            }
+                            @if (slide.SubTitle != null)
+                            {
+                                <h1 class="animated fadeInLeft"> @slide.SubTitle </h1>
+                            }
+
+                            @slide.CallToAction
+                        </div>
+                    </div>
+
+                    count++;
+                }
+
+            </div>
+
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="pre">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only"> Previous </span> @Model.Previous
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                @Model.Next
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only"> Next </span>
+            </a>
+        </div>
+    
+}
