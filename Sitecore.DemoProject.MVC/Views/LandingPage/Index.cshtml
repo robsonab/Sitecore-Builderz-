@@ -1,0 +1,23 @@
+﻿@using Sitecore.DemoProject.MVC.Models
+@model NavigationViewModel
+
+
+@if (Model != null && Model.Navigations != null && Model.Navigations.Count > 0)
+{
+
+    <div class="card ms-2 mt-4 mb-5" style="width: 18rem;">
+        <div class="card-header">
+            Landing Pages
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var navigation in Model.Navigations)
+            {
+                <a href="@navigation.NavigationLink" style="text-decoration: none">
+                    <li class="list-group-item">@navigation.NavigationTitle</li>
+                </a>
+            }
+        </ul>
+    </div>
+
+    <br />
+}

@@ -11,18 +11,17 @@ using System.Web.Mvc;
 
 namespace Sitecore.DemoProject.MVC.Controllers
 {
-    public class NavigationController : Controller
+    public class LandingPageController : Controller
     {
-        private const string Generic_Page = "Generic Page";
-
-        // GET: Navigation
+        private const string LandingPage = "Landing Page";
+        // GET: LandingPage
         public ActionResult Index()
         {
             var homeItem = Context.Site.HomeItem();
-            var navigations = new List<Navigation> { BuildNavigation(homeItem) };
+            var navigations = new List<Navigation>();
 
             var children = homeItem.Children
-                                    .Where(item => item.TemplateName == Generic_Page)
+                                    .Where(item => item.TemplateName == LandingPage)
                                     .Select(item => BuildNavigation(item));
             navigations.AddRange(children);
 
@@ -36,6 +35,5 @@ namespace Sitecore.DemoProject.MVC.Controllers
                 NavigationLink = item.Url(),
                 ActiveClass = PageContext.Current.Item.ID == item.ID ? "active" : string.Empty
             };
-
     }
 }
