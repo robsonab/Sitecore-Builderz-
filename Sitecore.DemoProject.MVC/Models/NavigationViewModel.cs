@@ -15,5 +15,6 @@ namespace Sitecore.DemoProject.MVC.Models
         public string NavigationTitle { get; set; }
         public string NavigationLink { get; set; }
         public string ActiveClass { get; set; }
+        public bool HideInNavigation { get; set; }
     }
 }

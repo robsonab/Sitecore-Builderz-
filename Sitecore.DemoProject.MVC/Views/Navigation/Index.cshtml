@@ -1,4 +1,9 @@
-﻿@using Sitecore.DemoProject.MVC.Models
+﻿@using Sitecore.Mvc
+@using Sitecore.DemoProject.MVC.Models
+@using Sitecore.Data;
+@using Sitecore.DemoProject.MVC.GlobalConfiguration
+@using Sitecore.DemoProject.MVC.Extensions
+
 @model NavigationViewModel
 
 @if (Model != null && Model.Navigations != null && Model.Navigations.Count > 0)
@@ -24,4 +29,5 @@
             </nav>
         </div>
     </div>
+     
 }

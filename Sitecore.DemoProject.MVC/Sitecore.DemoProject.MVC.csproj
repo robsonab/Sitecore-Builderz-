@@ -152,6 +152,12 @@
     <Content Include="App_Config\Include\Project\SiteDefinition.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Config\Include\Project\SitecoreSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Config\Include\Project\CustomLinkProvider.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\SitecoreDeploy.pubxml" />
     <Content Include="Views\Shared\_BasePage.cshtml" />
     <Content Include="Views\PageHeader\PageHeader.cshtml" />
@@ -173,8 +179,12 @@
     <Compile Include="Controllers\CarouselController.cs" />
     <Compile Include="Controllers\LandingPageController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="CustomCode\CustomLinkProvider.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
+    <Compile Include="Extensions\SitecoreHelperExtensions.cs" />
     <Compile Include="Extensions\SiteExtensions.cs" />
+    <Compile Include="GlobalConfiguration\GlobalConfiguration.cs" />
+    <Compile Include="Helper\Templates.cs" />
     <Compile Include="Models\AboutViewModel.cs" />
     <Compile Include="Models\CarouselModel.cs" />
     <Compile Include="Models\NavigationViewModel.cs" />

@@ -13,7 +13,12 @@
                 </div>
                 <div class="col-12">
                     <a href="/">Home</a>
-                    @*<a href="/about-us">@Html.Sitecore().Field("Title", Model.PageItem)</a>*@
+                    <p><h2>@Html.Sitecore().Field("Body", Model.PageItem)</h2></p>
+                    <p>
+                        @Html.Sitecore().BeginField("Link", new { @class = "btn" })                        
+                        @Html.Sitecore().EndField()
+                        
+                    </p>
                 </div>
             </div>
         </div>

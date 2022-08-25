@@ -25,17 +25,22 @@ namespace Sitecore.DemoProject.MVC.Controllers
                                     .Where(item => item.TemplateName == Generic_Page)
                                     .Select(item => BuildNavigation(item));
             navigations.AddRange(children);
+            navigations = navigations
+                            .Where(c => c.HideInNavigation == false)
+                            .ToList();
 
             return View(new NavigationViewModel { Navigations = navigations });
         }
 
         private Navigation BuildNavigation(Item item) =>
-            new Navigation
-            {
-                NavigationTitle = item.Fields["Navigation_Title"]?.Value,
-                NavigationLink = item.Url(),
-                ActiveClass = PageContext.Current.Item.ID == item.ID ? "active" : string.Empty
-            };
+                 new Navigation
+                 {
+                     NavigationTitle = item.Fields["Navigation_Title"]?.Value,
+                     NavigationLink = item.Url(),
+                     HideInNavigation = ((CheckboxField)item.Fields["Hide_in_Navigation"]).Checked,
+                     ActiveClass = PageContext.Current.Item.ID == item.ID ? "active" : string.Empty
+                 };
+
 
     }
 }

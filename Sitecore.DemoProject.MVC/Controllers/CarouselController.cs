@@ -30,7 +30,7 @@ namespace Sitecore.DemoProject.MVC.Controllers
             if (slidesField?.Count > 0)
             {
                 var slideItems = slidesField.GetItems();
-                foreach (var slideItem in slideItems)
+                foreach (var slideItem in slideItems.Where(c=> c.Versions.Count > 0))
                 {
                     var title = new MvcHtmlString(FieldRenderer.Render(
                             slideItem, "Title"));
