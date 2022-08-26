@@ -10,56 +10,91 @@
 
     bool isExperienceEditor = Sitecore.Context.PageMode.IsExperienceEditor;
     string data_ride = isExperienceEditor ? "false" : "true";
+    bool showNavigationButtons = Model.Slides.Count > 1 ? true : false;
 
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="@data_ride">
-        <div class="carousel-indicators">
-            @for (int i = 0; i < Model.Slides.Count; i++)
+    if (isExperienceEditor == false)
+    {
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="@data_ride">
+            @if (showNavigationButtons)
             {
-                if (i == 0)
-                {
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide 1">
-                    </button>
-                }
-                else
-                {
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" aria-label="Slide 2">
-                    </button>
-                }
-            }
-        </div>
-        <div class="carousel-inner">
-            @{
-                int count = 0;
-            }
-
-            @foreach (var slide in Model.Slides)
-            {
-                var activeClass = count == 0 ? "active" : string.Empty;
-
-                <div class="carousel-item @activeClass">
-                    @slide.Image
-                    <div class="carousel-caption d-none d-md-block">
-                        @if (string.IsNullOrEmpty(slide.Title.ToString()) == false || isExperienceEditor)
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.Slides.Count; i++)
+                    {
+                        if (i == 0)
                         {
-                            <h1>@slide.Title</h1>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide 1">
+                            </button>
                         }
-                        @if (string.IsNullOrEmpty(slide.SubTitle.ToString()) == false || isExperienceEditor)
+                        else
                         {
-                            <p>@slide.SubTitle</p>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" aria-label="Slide 2">
+                            </button>
                         }
-                    </div>
+                    }
                 </div>
-                count++;
             }
+            <div class="carousel-inner">
+                @{
+                    int count = 0;
+                }
+
+                @foreach (var slide in Model.Slides)
+                {
+                    var activeClass = count == 0 ? "active" : string.Empty;
+
+                    <div class="carousel-item @activeClass">
+                        @slide.Image
+                        <div class="carousel-caption d-none d-md-block">
+                            @if (string.IsNullOrEmpty(slide.Title.ToString()) == false)
+                            {
+                                <h1>@slide.Title</h1>
+                            }
+                            @if (string.IsNullOrEmpty(slide.SubTitle.ToString()) == false)
+                            {
+                                <p>@slide.SubTitle</p>
+                            }
+                        </div>
+                    </div>
+                    count++;
+                }
+            </div>
+
+            @if (showNavigationButtons)
+            {
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">@Labels.PreviousText()</span>@Labels.PreviousText()
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    @Labels.NextText()
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">@Labels.NextText()</span>
+                </button>
+            }
+
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">@Labels.PreviousText()</span>@Labels.PreviousText()
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            @Labels.NextText()
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">@Labels.NextText()</span>
-        </button>
-    </div>
+    }
+    else
+    {
+        <div class="container-fluid m-2">
+            <div class="row">
+                @foreach (var slide in Model.Slides)
+                {
+                    <div class="col-4 p-1">
+                        <div class="card">
+                            @slide.Image
+                            <div class="card-body">
+                                <h5 class="card-title text-center">@slide.Title</h5>
+                                <p class="card-text text-center">@slide.Title</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
+
+
 }

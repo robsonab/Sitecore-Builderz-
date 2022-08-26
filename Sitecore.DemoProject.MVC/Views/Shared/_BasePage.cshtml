@@ -35,10 +35,11 @@
 
 <body>
     <div class="wrapper">
-                
+
         @Html.Sitecore().Placeholder("head")
 
         @Html.Sitecore().Placeholder("main")
+        @Html.Sitecore().DynamicPlaceholder("dynamicmain")
 
     </div>
 

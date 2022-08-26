@@ -1,6 +1,7 @@
 ﻿using Sitecore.Data.Fields;
 using Sitecore.DemoProject.MVC.Models;
 using Sitecore.Mvc.Presentation;
+using Sitecore.Mvc;
 using Sitecore.Web.UI.WebControls;
 using System;
 using System.Collections.Generic;
@@ -17,20 +18,22 @@ namespace Sitecore.DemoProject.MVC.Controllers
             var model = new CarouselModel();
             List<Slide> slides = new List<Slide>();
             var dataSource = RenderingContext.Current?.Rendering.Item;
-            if(dataSource == null) { return View(); }
+            if (dataSource == null) { return View(); }
 
-            model.Previous = new MvcHtmlString(FieldRenderer.Render(
-                                    dataSource.Fields["Previous"].Item, "Previous"));
-            model.Next = new MvcHtmlString(FieldRenderer.Render(
-                                   dataSource.Fields["Next"].Item, "Next"));
-
+            if (dataSource.Fields.Any(c => c.Name == "Previous"))
+            {
+                model.Previous = new MvcHtmlString(FieldRenderer.Render(
+                                        dataSource.Fields["Previous"].Item, "Previous"));
+                model.Next = new MvcHtmlString(FieldRenderer.Render(
+                                       dataSource.Fields["Next"].Item, "Next"));
+            }
 
             MultilistField slidesField = dataSource.Fields["Slides"];
 
             if (slidesField?.Count > 0)
             {
                 var slideItems = slidesField.GetItems();
-                foreach (var slideItem in slideItems.Where(c=> c.Versions.Count > 0))
+                foreach (var slideItem in slideItems)
                 {
                     var title = new MvcHtmlString(FieldRenderer.Render(
                             slideItem, "Title"));
@@ -39,8 +42,8 @@ namespace Sitecore.DemoProject.MVC.Controllers
                         slideItem, "sub_Title"));
 
                     var image = new MvcHtmlString(FieldRenderer.Render(
-                        slideItem, "Image", "class=d-block w-100"));
-
+                            slideItem, "Image", "class=img-fluid"));
+                    
                     var callToAction = new MvcHtmlString(FieldRenderer.Render(
                         slideItem, "Call_To_Action",
                         "class=btn animated fadeInUp"));
